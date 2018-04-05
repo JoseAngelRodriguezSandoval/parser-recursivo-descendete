@@ -7,7 +7,6 @@ import PseudoLexer.PseudoLexer;
 
 public class Main {
 	private static final String FILENAME = "../PsudoCodeLexer/pesudo";
-
 	public static void main(String[] args) throws IOException {
 		int i;
 		PseudoLexer pseuLexer = new PseudoLexer();
@@ -17,7 +16,6 @@ public class Main {
 		try {
 		    StringBuilder sb = new StringBuilder();
 		    String line = br.readLine();
-
 		    while (line != null) {
 		        sb.append(line);
 		        sb.append(System.lineSeparator());
@@ -32,7 +30,6 @@ public class Main {
 		for(i = 0; i < pseuArray.size(); i++) {
 			System.out.println(pseuArray.get(i));
 		}
-		
 	}
 
 }

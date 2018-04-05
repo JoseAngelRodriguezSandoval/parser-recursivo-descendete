@@ -1,9 +1,5 @@
 package Token;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.ArrayList;
 import ListLexer.ListLexer;
-import PseudoLexer.PseudoLexer.TokenType;
 
 public class Token {
 	public int type;
