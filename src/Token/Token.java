@@ -1,19 +1,19 @@
 package Token;
-import ListLexer.ListLexer;
+import PseudoLexer.PseudoLexer.TokenType;
 
 public class Token {
-	public int type;
-	String text;
+	public TokenType token;
+	public String data;
 
 	// 	Constructor
-	public Token(int type, String data) {
-		this.type = type; // igualacion de valores
-		this.text = data; // igualacion de valores
+	public Token(TokenType type, String data) {
+		this.token = type; // igualacion de valores
+		this.data = data; // igualacion de valores
 	}
-	//	Returns tokenNames types
+	// Overriding toString function
+	@Override
 	public String toString() {
-		String tname = ListLexer.tokenNames[type];
-		return "<" + text +", " + tname + ">";
+		return String.format("(%s \"%s\")", token.name(), data);
 	}
 }
 	

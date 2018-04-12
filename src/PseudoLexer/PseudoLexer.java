@@ -4,50 +4,46 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PseudoLexer {
+import Lexer.Lexer;
+import Token.Token;
+
+public class PseudoLexer extends Lexer {
+	public int i = -1;
+	
+	public PseudoLexer(String input) {
+		super(input);
+		pslexer(input);
+	}
+
 	public ArrayList<Token> tokens = new ArrayList<Token>();
 
 	public enum TokenType {
 		// Can't use hyphen in name
-		NUMERO("-?[0-9]+(\\.([0-9]+))?"),
-		CADENA("\".*\""),
-		OPERACIONAL("<|>|==|<=|>=|!="),
-		IGUAL("="),
-		INICIOPROGRAMA("inicio-programa"),
-		FINPROGRAMA("fin-programa"),
-		SI("si"),
-		ENTONCES("entonces"),
-		FINSI("fin-si"),
-		MIENTRAS("mientras"),
-		FINMIENTRAS("fin-mientras"),
-		LEER("leer"),
-		ESCRIBIR("escribir"),
-		COMA(","),
-		PARENTESISQ("\\("),
-		PARENTESISDER("\\)"),
-		ESPACIOS("[\t\f\r\n]+"),
-		VARIABLE("[a-zA-Z][a-zA-Z0-9]*"),
-		ERROR(".+");
+		NUMERO("-?[0-9]+(\\.([0-9]+))?"), 	//0
+		CADENA("\".*\""),					//1
+		OPERACIONAL("==|<=|>=|<|>|!="),		//2
+		IGUAL("="),							//3
+		INICIOPROGRAMA("inicio-programa"),	//4
+		FINPROGRAMA("fin-programa"),		//5
+		SI("si"),							//6
+		ENTONCES("entonces"),				//7
+		FINSI("fin-si"),					//8
+		MIENTRAS("mientras"),				//9
+		FINMIENTRAS("fin-mientras"),		//10
+		LEER("leer"),						//11
+		ESCRIBIR("escribir"),				//12
+		COMA(","),							//13
+		PARENTESISQ("\\("),					//14
+		PARENTESISDER("\\)"),				//15
+		ESPACIOS("[ \t\f\r\n]+"),			//16
+		VARIABLE("[a-zA-Z][a-zA-Z0-9]*"),	//17
+		OPARITMETICO("[*|/|+|-]"),			//18
+		ERROR(".+");						//19
 		
 		public final String pattern;
 		
 		private TokenType(String pattern) {
 			this.pattern = pattern;
-		}
-	}
-	
-	public class Token {
-		public TokenType type;
-		public String data;
-		//	Constructor
-		public Token(TokenType type, String data) {
-			this.type = type;
-			this.data = data;
-		}
-		// Overriding toString function
-		@Override
-		public String toString() {
-			return String.format("(%s \"%s\")", type.name(), data);
 		}
 	}
 
@@ -77,7 +73,13 @@ public class PseudoLexer {
 		return tokens;
 	}
 
-	public void Pseudolexer(String input) {
+	public Token nextToken() {
+		if(i <= tokens.size())
+			i++;
+		return tokens.get(i);
+	}
+
+	public void pslexer(String input) {
 		StringBuffer tokenPatternsBuffer = new StringBuffer();
 		for(TokenType tokenType : TokenType.values())
 			tokenPatternsBuffer.append(String.format("|(?<%s>%s)", tokenType.name(), tokenType.pattern));

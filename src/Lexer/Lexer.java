@@ -30,5 +30,4 @@ public abstract class Lexer {
 			throw new Error("Expecting: " + x + "; Found: " + c);
 	}
 	public abstract Token nextToken();
-	public abstract String getTokenName(int tokenType);
 }

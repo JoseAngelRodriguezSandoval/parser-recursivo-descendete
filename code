@@ -1,0 +1,5 @@
+inicio-programa
+fin-programa
+si prom > 5 entonces
+	escribir "Aprobado con: ", prom
+fin-si

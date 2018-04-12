@@ -4,15 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import PseudoLexer.PseudoLexer;
+import PseudoParser.PseudoParser;
+import Token.Token;
 
 public class Main {
-	private static final String FILENAME = "../PsudoCodeLexer/pesudo";
+	private static final String FILENAME = "./code";
 	public static void main(String[] args) throws IOException {
-		int i;
-		PseudoLexer pseuLexer = new PseudoLexer();
 		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
 		String pseuCode;
-		ArrayList<PseudoLexer.Token> pseuArray;
+		PseudoLexer pseuLexer;
+		PseudoParser pseuParser;
+		ArrayList<Token> pseuArray;
 		try {
 		    StringBuilder sb = new StringBuilder();
 		    String line = br.readLine();
@@ -25,11 +27,17 @@ public class Main {
 		} finally {
 		    br.close();
 		}
-		pseuLexer.Pseudolexer(pseuCode);
-		pseuArray = pseuLexer.tokens;
-		for(i = 0; i < pseuArray.size(); i++) {
-			System.out.println(pseuArray.get(i));
+		pseuLexer = new PseudoLexer(pseuCode);
+		pseuParser = new PseudoParser(pseuLexer);
+		/*
+		for(i = 0; i < pseuLexer.tokens.size(); i++) {
+			System.out.println(pseuLexer.tokens.get(i));
 		}
+		*/
+		pseuParser.programa();
+		pseuParser.si();
+		
+
 	}
 
 }
