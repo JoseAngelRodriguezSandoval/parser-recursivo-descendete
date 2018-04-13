@@ -14,7 +14,7 @@ public class Parser {
 	public void match(String x) {
 		System.out.println(lookahead);
 		if( lookahead.token.name().equals(x)) consume();
-		else throw new Error("Error; found" + lookahead);
+		else throw new Error("Error needed " + x +  "; found" + lookahead);
 	}
 	
 	public void pseuMatch(String x) {

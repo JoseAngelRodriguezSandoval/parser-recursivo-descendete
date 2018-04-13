@@ -36,8 +36,8 @@ public class Main {
 		*/
 		pseuParser.programa();
 		pseuParser.si();
-		
-
+		pseuParser.mientras();
+		System.out.println("Herow");
 	}
 
 }

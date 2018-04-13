@@ -1,5 +1,9 @@
 inicio-programa
+	si prom > 5 entonces
+		escribir "Aprobado con: ", prom
+	fin-si
+	mientras i < n
+		leer "Da una calificacion", cal
+		prom = prom + cal
+	fin-mientras
 fin-programa
-si prom > 5 entonces
-	escribir "Aprobado con: ", prom
-fin-si
