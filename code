@@ -1,9 +1,12 @@
 inicio-programa
+	prom = 10
+	cal = 0
+	i  = 0
 	si prom > 5 entonces
 		escribir "Aprobado con: ", prom
 	fin-si
 	mientras i < n
 		leer "Da una calificacion", cal
-		prom = prom + cal
+		prom = prom + 1
 	fin-mientras
 fin-programa

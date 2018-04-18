@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import PseudoLexer.PseudoLexer;
 import PseudoParser.PseudoParser;
 import Token.Token;
+import writer.Writer;
 
 public class Main {
-	private static final String FILENAME = "./code";
+	private static final String FILENAME = "./pesudo";
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
 		String pseuCode;
@@ -35,9 +36,8 @@ public class Main {
 		}
 		*/
 		pseuParser.programa();
-		pseuParser.si();
-		pseuParser.mientras();
-		System.out.println("Herow");
+		//pseuParser.si();
+		//pseuParser.mientras();
 	}
 
 }
