@@ -1,7 +1,10 @@
 inicio-programa
+	i, prom: entero
+	cool: flotante
+
 	leer "Cuantas calificaciones", n
+
 	prom = 0
-	
 	i = 0
 	mientras i < n
 		leer "Da una calificacion", cal

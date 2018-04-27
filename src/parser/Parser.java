@@ -1,6 +1,6 @@
-package Parser;
-import PseudoLexer.PseudoLexer;
-import Token.Token;
+package parser;
+import pseudoLexer.PseudoLexer;
+import token.Token;
 
 public class Parser {
 	PseudoLexer input;

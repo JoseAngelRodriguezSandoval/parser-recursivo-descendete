@@ -1,6 +1,6 @@
-package Lexer;
+package lexer;
 
-import Token.Token;
+import token.Token;
 
 public abstract class Lexer {
 	protected static final char EOF = (char)-1;

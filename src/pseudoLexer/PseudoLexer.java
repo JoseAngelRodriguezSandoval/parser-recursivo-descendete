@@ -1,11 +1,11 @@
-package PseudoLexer;
+package pseudoLexer;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Lexer.Lexer;
-import Token.Token;
+import lexer.Lexer;
+import token.Token;
 
 public class PseudoLexer extends Lexer {
 	public int i = -1;
@@ -36,9 +36,11 @@ public class PseudoLexer extends Lexer {
 		PARENTESISQ("\\("),					//14
 		PARENTESISDER("\\)"),				//15
 		ESPACIOS("[ \t\f\r\n]+"),			//16
-		VARIABLE("[a-zA-Z][a-zA-Z0-9]*"),	//17
-		OPARITMETICO("[*|/|+|-]"),			//18
-		ERROR(".+");						//19
+		TIPO("entero|flotante"),			//17
+		VARIABLE("[a-zA-Z][a-zA-Z0-9]*"),	//18
+		OPARITMETICO("[*|/|+|-]"),			//19
+		DOSPUNTOS(":"),						//20
+		ERROR(".+");						//21
 		
 		public final String pattern;
 		

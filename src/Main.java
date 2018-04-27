@@ -3,9 +3,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import PseudoLexer.PseudoLexer;
-import PseudoParser.PseudoParser;
-import Token.Token;
+import pseudoLexer.PseudoLexer;
+import pseudoParser.PseudoParser;
+import token.Token;
 import writer.Writer;
 
 public class Main {
@@ -15,7 +15,7 @@ public class Main {
 		String pseuCode;
 		PseudoLexer pseuLexer;
 		PseudoParser pseuParser;
-		ArrayList<Token> pseuArray;
+		//ArrayList<Token> pseuArray;
 		try {
 		    StringBuilder sb = new StringBuilder();
 		    String line = br.readLine();

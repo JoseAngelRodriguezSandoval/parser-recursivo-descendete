@@ -1,5 +1,5 @@
-package Token;
-import PseudoLexer.PseudoLexer.TokenType;
+package token;
+import pseudoLexer.PseudoLexer.TokenType;
 
 public class Token {
 	public TokenType token;

@@ -1,15 +1,22 @@
-package PseudoParser;
+package pseudoParser;
 
-import PseudoLexer.PseudoLexer;
+import parser.Parser;
+import pseudoLexer.PseudoLexer;
+import symbol.BuiltInTypeSymbol;
+import symbol.SymbolTable;
+import symbol.VariableSymbol;
 import writer.Writer;
 
+import java.util.ArrayList;
 import java.io.IOException;
-
-import Parser.Parser;
 
 public class PseudoParser extends Parser {
 	PseudoLexer input;
 	Writer writer = new Writer("../parser-recursivo-descendete/prog.c");
+	SymbolTable symbolTable = new SymbolTable();
+	VariableSymbol symbolVar;
+	String tmpName;
+    ArrayList<String> arr = new ArrayList<>();
 	public PseudoParser(PseudoLexer in) {
 		super(in);
 		input = in;
@@ -17,14 +24,13 @@ public class PseudoParser extends Parser {
 	
 	public void programa() throws IOException {
 		//System.out.println("Index en programa:" + input.i);
+		writer.createNewFile();
 		match("INICIOPROGRAMA");
 		writer.append("#include <stdio.h>", true);
 		writer.append("#include <stdlib.h>\n", true);
 		writer.append("int main() {", true);
-		System.out.println("inicializacion de loop PROGRAMA");
+		declaraciones();
 		enunciados();
-		System.out.println("Salida de loop PROGRAMA");
-		//System.out.println("Index en programa:" + input.i);
 		match("FINPROGRAMA");
 		writer.append("\treturn 0;\n}", false);
 		writer.closeWriter();
@@ -41,9 +47,46 @@ public class PseudoParser extends Parser {
 		}
 	}
 
+	public void listaVariables() {
+		arr.add(input.tokens.get(input.i).data);
+		match("VARIABLE");
+		if(input.tokens.get(input.i).token.name().equals("COMA")) {
+			match("COMA");
+			listaVariables();
+		}
+	}
+
+	public void declaraciones() {
+		listaVariables();
+		match("DOSPUNTOS");
+		String type = input.tokens.get(input.i).data;
+		switch(type) {
+			case "entero":
+					defineWrapper(type);
+				break;
+			case "flotante":
+					defineWrapper(type);
+			default:
+				System.out.println("TIPO de valor inexistente");
+		}
+		System.out.println(symbolTable);		
+		match("TIPO");
+		if(input.tokens.get(input.i).token.toString().equals("VARIABLE")) {
+			declaraciones();
+		}
+	}
+	
+	public void defineWrapper(String type) { 
+		for(int i = 0; i < arr.size(); i++) {
+			 symbolVar = new VariableSymbol(arr.get(i), new BuiltInTypeSymbol(type));
+			 symbolTable.define(symbolVar);
+		}
+		arr.clear();
+	}
+
+	
 	public void comparacion() throws IOException {
 		valor();
-		//System.out.println("AAAAAAAAAAAA" + input.tokens.get(input.i).data);
 		writer.append(" " + input.tokens.get(input.i).data + " ", false);
 		match("OPERACIONAL");
 		valor();
@@ -61,7 +104,6 @@ public class PseudoParser extends Parser {
 		match("ESCRIBIR");
 		writer.append(input.tokens.get(input.i).data, false);
 		match("CADENA");
-		//System.out.print(input.tokens.get(input.i).token.name());
 		if(input.tokens.get(input.i).token.name() == "COMA") {
 			writer.append(input.tokens.get(input.i).data, false);
 			match("COMA");
@@ -91,9 +133,7 @@ public class PseudoParser extends Parser {
 		comparacion();
 		writer.append("){", true);
 		match("ENTONCES");
-		System.out.println("Inicialacion de loop SI ENTONCES");
 		enunciados();
-		System.out.println("Salida de loop fin SI ENTONCES");
 		writer.append("\t}", true);
 		match("FINSI");
 	}
@@ -118,20 +158,18 @@ public class PseudoParser extends Parser {
 		match("MIENTRAS");
 		comparacion();
 		writer.append("){", true);
-		System.out.println("Inicialacion de loop fin mientras");
 		enunciados();
-		System.out.println("Salida de loop fin mientras");
 		writer.append("\n\t}", true);
 		match("FINMIENTRAS");
 	}
 	
 	public void asignacion() throws IOException {
 		writer.append("\t\tint " + input.tokens.get(input.i).data + " ", false);
+		verificador();
 		match("VARIABLE");
 		writer.append(" " + input.tokens.get(input.i).data + " ", false);
 		match("IGUAL");
 		//operacion();
-		System.out.println(input.tokens.get(input.i).data);
 		if(input.tokens.get(input.i).token.name() == "NUMERO") {
 			writer.append(" " + input.tokens.get(input.i).data, false);
 			match("NUMERO");
@@ -139,6 +177,11 @@ public class PseudoParser extends Parser {
 			operacion();
 		}
 		writer.append(";", true);
+	}
+	
+	public void verificador() {
+		if(symbolTable.resolve(lookahead.data) == null)
+			throw new Error("Variable no declarada: " + lookahead.data);
 	}
 	
 	public void enunciado() throws IOException {
@@ -162,4 +205,7 @@ public class PseudoParser extends Parser {
 		
 	}
 	
+	public void debugMarker() {
+		System.out.print("Debugging here --->");
+	}
 }
