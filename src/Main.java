@@ -7,7 +7,30 @@ import pseudoLexer.PseudoLexer;
 import pseudoParser.PseudoParser;
 import token.Token;
 import writer.Writer;
+/*
+ *What to do ? Esto va en una clase prueba en el main
+ *	scope currentScope;
+ *	currentScope = new GlobalScope();
+ *	p.push(currentScope);
+ *	currentScope.def("int");
+ *				.def("float");		
+ *				.def("void");
+ *
+ *	x = currentScope.resolve("int"); tipo de token
+ *	currentScope.def(new VariableSymbol("i"));
+ *	y = currentScope.resolve("float);
+ *	aux = new MethodSymbol("f");
+ *	currentScope.def(aux);
+ *	currentScope = aux;
+ *	p.push(currentScope);
+ *
+ *	currentScope = new MethodSymbol("f", currentScope);
+ *	
+ * 	currentScope = new LocalScope("f", currentScope);
+ *	
+ *	currentScope = currentScope.getEnclosingScope();
 
+ * */
 public class Main {
 	private static final String FILENAME = "./pesudo";
 	public static void main(String[] args) throws IOException {
@@ -36,8 +59,6 @@ public class Main {
 		}
 		*/
 		pseuParser.programa();
-		//pseuParser.si();
-		//pseuParser.mientras();
 	}
 
 }
