@@ -1,4 +1,6 @@
-package symbol;
+package scope;
+
+import symbol.Symbol;
 
 public interface Scope {
 	public String getScopeName();		//do i have a name?
